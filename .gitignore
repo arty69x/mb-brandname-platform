@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Next.js Build & Cache
+.next/
+out/
+build/
+
+# Environment Variables (IMPORTANT)
+.env
+.env.local
+.env.production
+
+# Logs & Debug
+npm-debug.log*
+yarn-error.log*
+.DS_Store
