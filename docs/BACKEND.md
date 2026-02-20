@@ -20,19 +20,19 @@ Managing customer acquisition and fulfillment.
 - **Attributes**: `id`, `userId`/`guestId`, `items` (OrderItem[]), `total`, `status` (`pending`, `shipped`, `delivered`, `cancelled`), `createdAt`.
 - **Shipping**: Structured object containing name, street, city, postal code, and country.
 
-### 3. `HeroSlide` Cinematic State
+### 3. `Settings` Configuration
 
-Governs landing page storytelling.
+Orchestrating platform behavior and appearance.
 
-- **Assets**: 1920x1080 Images and 4K Video background URLs.
+- **Attributes**: `platformName`, `maintenanceMode`, `contactEmail`, `socialLinks`, `seoMetadata`.
 
 ## III. Data Governance (`MockDB`)
 
-The `MockDB` class acts as the single source of truth:
+The `MockDB` class (located in `@/lib/db.ts`) acts as the single source of truth:
 
-- **Relational Simulation**: Links orders to products and users.
-- **Advanced Querying**: Implements multi-parameter filtering for the frontend search engine (brand, keyword, status).
-- **In-Memory Persistence**: Maintains state across page transitions during the browser session.
+- **Relational Simulation**: Links orders to products and users via unique ID keys.
+- **Advanced Querying**: Implements multi-parameter filtering for the frontend search engine (brand, keyword, status, sorting).
+- **In-Memory Persistence**: Maintains state across page transitions using a singleton pattern. State resets upon full page refresh (hard-reload) unless bridged to `localStorage`.
 
 ## IV. Administrative Suite: "The Vault Control"
 
@@ -48,16 +48,18 @@ Accessed via `/backend`, this management layer allows boutique administrators to
 - **Order Processing**: Visibility into all customer orders with the ability to update shipping status.
 - **Status Workflow**: Tracks the lifecycle of a purchase from "Pending" to "Delivered".
 
-### 3. Hero Visuals
+### 3. System Orchestration
 
-- Editable homepage carousel configuration (images/videos/titles).
+- **Hero Config**: Editable homepage carousel configuration (images/videos/titles).
+- **Settings**: Global platform configuration (Contact info, Social links, System status).
 
 ## V. Security & Authentication
 
-- **Admin Access**: Protected via `AuthContext`. Default credentials: `admin` / `admin`.
+- **Admin Access**: Protected via `AuthContext`. Default credentials: `admin@mb-brandname.com` / `admin123`.
 - **API Protection**: Backend API routes verify administrative privilege before allowing data mutation.
 - **SEO/Robots**: `robots.txt` ensures private dashboards are excluded from search engine indices.
 
 ---
 
 _MB BRANDNAME — Powered by Precision._
+

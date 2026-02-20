@@ -19,46 +19,49 @@ The MB BRANDNAME frontend is engineered to evoke the atmosphere of a high-end To
 A sophisticated engine supporting **Thai** and **English**.
 
 - Global `t()` function for string retrieval.
-- specialized fonts: `Bodoni Moda` (Serif) integrated with `Prompt/Sarabun` (Thai).
+- Seamlessly manages dual-language content across all shop and administrative interfaces.
 
-### 2. Transactional Engine (`CartContext` & `Checkout`)
+### 2. Typographic Orchestration (`FontContext`)
 
-- Real-time cart state with local storage persistence.
+Dynamically manages font families to suit the active locale:
+
+- **English Mode**: Prioritizes `Bodoni Moda` (Serif) for headers and `Inter` (Sans) for UI elements.
+- **Thai Mode**: Utilizes `Prompt` and `Sarabun` to maintain legibility and professional aesthetic for Thai scripts.
+
+### 3. Transactional Engine (`CartContext` & `Checkout`)
+
+- Real-time cart state with persistence.
 - Multi-step checkout flow (Information -> Shipping -> Payment -> Success).
-- Support for Guest Checkout and Profile-linked purchases.
-
-### 3. Navigation & Search Overlay
-
-- **Navbar**: High-fidelity sticky navigation with mobile-responsive menu.
-- **Global Search**: Modal-based search overlay with real-time results, brand highlighting, and instant product access.
+- Integrated with MockDB for guest and authenticated order creation.
 
 ## IV. Design System: "Tokyo Archive"
 
 - **Visual Tone**: Minimalist monochrome layout (Zinc/White/Black) to accentuate luxury product photography.
-- **Typography Tokens**:
-  - `.luxury-serif`: Uppercase, high-tracking, Bodoni-inspired.
-  - `.narrative-text`: Italicized, elegant storytelling.
-- **UX Patterns**:
-  - **Loading Skeletons**: Custom CSS-shimmer backgrounds replacing generic spinners.
-  - **Glassmorphism**: Subtle backdrop blurs for UI overlays and dropdown menus.
+- **Visual Primitives**:
+  - **Glassmorphism**: Subtle backdrop blurs for the global Navbar and Search Overlay.
+  - **UX Chonography**: High-fidelity loading skeletons and staggered entry animations for collection grids.
+- **Interactive Layers**:
+  - **Search Modal**: Instant filtering and visual product matches.
+  - **Hover Effects**: Luxury "zoom-and-fade" patterns on archive items.
 
 ## V. Strategic Pages
 
 ### 1. Immersive Homepage
 
 - Cinematic Swiper carousel with 4K video backgrounds.
-- Bento-grid layout for editorial storytelling.
-- Instagram-ready style galleries.
+- Editorial "Bento" grids for storytelling and category highlights.
 
 ### 2. Collection Discovery
 
-- **Bags/Accessories**: Grid layouts with real-time `FilterBar` (Filter by Brand, Sort by Price/Newest).
-- **Product Detail**: Multi-image zoom gallery, localized luxury descriptions, and dynamic "Related Products" feed.
+- **Grid Systems**: Dynamic layouts for Bags, Accessories, and New Arrivals.
+- **Filter Bar**: Advanced client-side filtering by Brand, Category, and Price sorting.
+- **Product Detail**: Multi-image gallery with localized descriptions and authentic condition grading.
 
-### 3. Administrative Interface
+### 3. Administrative Interface (`/backend`)
 
-- Secure login and unified dashboard for order and inventory tracking.
+- Secure unified dashboard for orchestrating the digital boutique's front-facing visual and inventory.
 
 ---
 
 _MB BRANDNAME — Curating the Future of Heritage._
+
