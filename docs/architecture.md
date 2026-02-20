@@ -1,38 +1,35 @@
-# Luxury Commerce System Architecture (Production-Ready)
+# MB Brandname Platform Architecture
 
-## 1) High-level blueprint
+## Monorepo structure
 
-```mermaid
-flowchart TD
-  A[Client Apps\nStorefront / Admin] --> B[Edge CDN + WAF]
-  B --> C[API Gateway\nAuth + Validation + Rate Limit]
-  C --> D[Commerce Core Services\nCatalog / Cart / Checkout / Orders]
-  D --> E[(PostgreSQL + Prisma\nACID + Constraints)]
-  D --> F[(Redis\nCache + Session + Rate Limit)]
-  D --> G[Event Bus / Queue\nAsync Jobs]
-  G --> H[Workers\nEmail / Webhook Retry / Search Index]
-  D --> I[Payments\nStripe/Provider]
-  I --> J[Webhook Ingress\nSignature + Idempotency]
-  J --> D
-  D --> K[Observability\nLogs + Metrics + Traces + Audit]
-```
+- `app/` hosts the deployable Next.js App Router operational surface.
+- `packages/types` contains shared commerce contracts used across apps and services.
+- `packages/lib` contains infra helpers such as inventory and rate-limit primitives.
+- `packages/config` carries strict TypeScript defaults for every workspace.
+- `apps/*` is reserved for future domain apps (`api`, `admin`, `web`) without coupling to root runtime.
 
-## 2) Core reliability patterns
-- **Strict contracts:** Zod schemas shared from `packages/types` between API and clients.
-- **Data integrity first:** PostgreSQL constraints + FK + unique keys in Prisma schema.
-- **Concurrency safety:** transactional stock decrement and idempotent payment flow.
-- **Failure handling:** retry policies, DLQ (dead-letter queue), circuit breaker on external providers.
-- **Security baseline:** RBAC, CSRF, CSP, secure cookies, webhook signature verification.
+## Shared contracts and boundaries
 
-## 3) Recommended deployment layout
-- **Edge:** CDN + WAF (Cloudflare/Fastly).
-- **Apps/API:** containerized workloads (Kubernetes/ECS/Fly/Render).
-- **Database:** managed PostgreSQL with read replica.
-- **Queue:** Redis/BullMQ, SQS, or RabbitMQ.
-- **Monitoring:** OpenTelemetry + Datadog/New Relic/Grafana stack.
+Contract-driven development starts in `packages/types/src/commerce.ts`. The `Money`, `Product`, `Cart`, and `Order` contracts are intended to be imported by API handlers, worker jobs, and frontend surfaces to keep payload shape consistent.
 
-## 4) SLO starter set
-- API p95 latency < 250ms (read), < 500ms (write)
-- Error rate < 0.5%
-- Checkout success rate > 98%
-- Payment webhook processing success > 99.9%
+## Migrations and database strategy
+
+`prisma/schema.prisma` is the canonical data model source. Migration flow should be:
+
+1. update Prisma schema,
+2. generate migration,
+3. run against preview/staging,
+4. validate read/write compatibility before production rollout.
+
+All schema changes should be additive-first to avoid runtime breakage in preview deployments.
+
+## Payments and webhook reliability
+
+Payments should be processed with idempotency keys and webhook signature validation at ingress. Webhook handlers must persist event delivery state and safely reprocess retries without duplicate order mutations.
+
+## CI/CD and deployment split
+
+- Root Next.js app deploys to Vercel for preview and production web surfaces.
+- Service workloads under `apps/*` can deploy independently (container or serverless) while reusing contracts.
+- CI must enforce `npm run typecheck` and `npm run build` before merge.
+- Preview health checks target `/api/health` to verify commit-level runtime transparency.
