@@ -1,21 +1,44 @@
 # MB Brandname Platform 💎
 
-A premium, high-performance luxury e-commerce ecosystem. Built with a focus on **Type-safety**, **Performance**, and **Scalable Architecture**.
+A premium, high-performance luxury e-commerce ecosystem built for **correctness**, **scalability**, and **enterprise-grade reliability**.
 
-## 🛠 Tech Stack
-- **Frontend:** Next.js 14+ (App Router), Tailwind CSS
-- **Backend:** Next.js API Routes / Node.js
-- **Language:** TypeScript (Strict Mode)
-- **Architecture:** Monorepo (Apps/Packages separation)
+## Monorepo structure
 
-## 🏗 Key Features
-- **Atomic Design:** UI components built for reusability.
-- **End-to-End Type Safety:** Shared interfaces between Frontend & API.
-- **Optimized Performance:** Next/Image optimization for luxury assets.
+```txt
+apps/
+  web/
+  admin/
+  api/
+packages/
+  ui/
+  types/
+  lib/
+  config/
+prisma/
+docs/
+```
 
-## 🚀 Getting Started
-1. **Clone & Install:**
-   `git clone https://github.com/your-user/mb-brandname-platform.git`
-   `npm install`
-2. **Environment Setup:** Copy `.env.example` to `.env.local`
-3. **Development:** `npm run dev`
+## What's included in this baseline
+
+- Production-oriented monorepo scaffold (`apps/*`, `packages/*`)
+- Strict TypeScript baseline (`packages/config/tsconfig.base.json`)
+- Shared Zod contracts (`packages/types/src/commerce.ts`)
+- API handler pattern with schema validation (`apps/api/src/products.handler.ts`)
+- Concurrency-safe inventory reservation example (`packages/lib/src/inventory.ts`)
+- Basic in-memory rate limiter (`packages/lib/src/rate-limit.ts`)
+- Full commerce Prisma schema (`prisma/schema.prisma`)
+- Architecture and execution docs (`docs/*`)
+
+## Key documents
+
+- `docs/architecture.md` — system architecture and reliability patterns
+- `docs/dev-roadmap-daily.md` — daily execution roadmap
+- `docs/shopify-headless-comparison.md` — build vs buy trade-off analysis
+- `docs/cost-complexity-analysis.md` — cost and complexity planning guide
+
+## Next steps
+
+1. Configure CI to enforce lint/typecheck/build on each PR.
+2. Add database migrations and seed scripts for `prisma/schema.prisma`.
+3. Implement checkout and payment integrations with webhook idempotency.
+4. Split runtime apps (`apps/web`, `apps/admin`, `apps/api`) into independently deployable targets.
