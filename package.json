@@ -1,0 +1,14 @@
+{
+  "name": "mb-brandname-platform",
+  "private": true,
+  "packageManager": "pnpm@9.0.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "typecheck": "tsc -p packages/config/tsconfig.base.json --noEmit",
+    "lint": "echo \"Add project-specific lint config\"",
+    "build": "echo \"Add project-specific build pipelines\""
+  }
+}
