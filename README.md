@@ -38,7 +38,7 @@ docs/
 
 ## Next steps
 
-1. Configure CI to enforce lint/typecheck/build on each PR.
-2. Add database migrations and seed scripts for `prisma/schema.prisma`.
-3. Implement checkout and payment integrations with webhook idempotency.
-4. Split runtime apps (`apps/web`, `apps/admin`, `apps/api`) into independently deployable targets.
+1. Add package-level `package.json` and app runtime setup (Next.js/API server).
+2. Configure CI to enforce lint/typecheck/build.
+3. Add database migrations and seed scripts.
+4. Implement checkout and payment integrations with webhook idempotency.

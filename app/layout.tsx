@@ -1,9 +1,8 @@
 import type { ReactNode } from "react";
-import "./globals.css";
 
 export const metadata = {
   title: "MB Brandname Platform",
-  description: "Enterprise-ready luxury commerce architecture baseline"
+  description: "Production-ready luxury commerce platform"
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
