@@ -95,3 +95,39 @@ a:hover {
   padding-left: 1rem;
   padding-right: 1rem;
 }
+
+.cta-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.action-btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--glass-border);
+  background: rgba(38, 48, 79, 0.45);
+  border-radius: 10px;
+  padding: 0.65rem 0.85rem;
+  color: var(--text-main);
+  font-weight: 600;
+  transition: transform 200ms ease, box-shadow 200ms ease, background-color 200ms ease;
+}
+
+.action-btn:hover {
+  text-decoration: none;
+  transform: translateY(-3px);
+  box-shadow: var(--elev-shadow);
+  background: rgba(57, 72, 116, 0.65);
+}
+
+.action-btn-primary {
+  background: linear-gradient(120deg, rgba(110, 137, 255, 0.5), rgba(80, 205, 255, 0.4));
+}
+
+@media (min-width: 700px) {
+  .cta-row {
+    flex-direction: row;
+  }
+}

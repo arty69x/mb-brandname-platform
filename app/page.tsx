@@ -36,15 +36,23 @@ export default function HomePage() {
             <h1 style={{ fontSize: "clamp(1.8rem, 5vw, 3rem)", marginBottom: "0.75rem" }}>
               Deployable foundation for commerce runtime confidence
             </h1>
-            <p>
+            <p style={{ marginBottom: "1rem" }}>
               This surface is the platform intelligence layer for engineers and operators: runtime
               visibility, delivery health, and readiness signals in one place.
             </p>
+            <div className="cta-row">
+              <Link href="#platform-sections" className="action-btn action-btn-primary">
+                Preview Full Platform Surface
+              </Link>
+              <Link href="/docs/architecture" className="action-btn">
+                Open Architecture Docs
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      <section style={{ padding: "0 0 1rem" }}>
+      <section id="platform-sections" style={{ padding: "0 0 1rem" }}>
         <div className="container mx-auto px-4">
           <div className="grid grid-2">
             <RuntimeHealthPanel />
