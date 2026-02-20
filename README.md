@@ -1,77 +1,44 @@
-# ForLuxury Ecommerce Monorepo
+# MB Brandname Platform 💎
 
-Production-ready monorepo baseline for a **fullstack luxury ecommerce platform** with:
+A premium, high-performance luxury e-commerce ecosystem built for **correctness**, **scalability**, and **enterprise-grade reliability**.
 
-- **Next.js + TypeScript** frontend (`apps/web`)
-- **Tailwind CSS** design foundation
-- **Express API** service (`apps/api`)
-- **Shared UI package** (`packages/ui`)
-- **GitHub Actions CI** and **Vercel preview deployment workflow**
-
-## Project Structure
+## Monorepo structure
 
 ```txt
 apps/
-  web/        # Next.js storefront (App Router)
-  api/        # Node/Express backend
+  web/
+  admin/
+  api/
 packages/
-  ui/         # Shared UI components
+  ui/
+  types/
+  lib/
+  config/
+prisma/
+docs/
 ```
 
-## Prerequisites
+## What's included in this baseline
 
-- Node.js 22+
-- pnpm 9+
+- Production-oriented monorepo scaffold (`apps/*`, `packages/*`)
+- Strict TypeScript baseline (`packages/config/tsconfig.base.json`)
+- Shared Zod contracts (`packages/types/src/commerce.ts`)
+- API handler pattern with schema validation (`apps/api/src/products.handler.ts`)
+- Concurrency-safe inventory reservation example (`packages/lib/src/inventory.ts`)
+- Basic in-memory rate limiter (`packages/lib/src/rate-limit.ts`)
+- Full commerce Prisma schema (`prisma/schema.prisma`)
+- Architecture and execution docs (`docs/*`)
 
-## Setup
+## Key documents
 
-```bash
-pnpm install
-```
+- `docs/architecture.md` — system architecture and reliability patterns
+- `docs/dev-roadmap-daily.md` — daily execution roadmap
+- `docs/shopify-headless-comparison.md` — build vs buy trade-off analysis
+- `docs/cost-complexity-analysis.md` — cost and complexity planning guide
 
-## Run in Development
+## Next steps
 
-```bash
-pnpm dev
-```
-
-Services:
-- Web: http://localhost:3000
-- API: http://localhost:4000/health
-
-By default, the web app calls `NEXT_PUBLIC_API_URL` (fallbacks to `http://localhost:4000`).
-
-## Quality Commands
-
-```bash
-pnpm lint
-pnpm typecheck
-pnpm build
-```
-
-## GitHub + Vercel Preview Setup
-
-Create the following repository secrets for `.github/workflows/vercel-preview.yml`:
-
-- `VERCEL_TOKEN`
-- `VERCEL_ORG_ID`
-- `VERCEL_PROJECT_ID`
-
-Then link your Vercel project from repo root once:
-
-```bash
-pnpm dlx vercel link
-```
-
-Each PR to `main` will run CI and attempt a preview deployment.
-
-## Demo Endpoints
-
-- `GET /health` → API health status
-- `GET /products/featured` → sample featured product catalog for demo pages
-
-## Showroom Readiness Checklist
-
-- Add repository secrets: `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`
-- Ensure `NEXT_PUBLIC_API_URL` points to your API preview URL in Vercel project settings
-- Run `pnpm build` locally before client demo to verify all packages
+1. Add package-level `package.json` and app runtime setup (Next.js/API server).
+2. Configure CI to enforce lint/typecheck/build.
+3. Add database migrations and seed scripts.
+4. Implement checkout and payment integrations with webhook idempotency.
