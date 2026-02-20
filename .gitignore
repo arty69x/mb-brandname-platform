@@ -16,3 +16,15 @@ build/
 npm-debug.log*
 yarn-error.log*
 .DS_Store
+
+# Turborepo
+.turbo/
+
+# TypeScript
+*.tsbuildinfo
+
+# Build outputs
+apps/api/dist/
+
+# Vercel
+.vercel/
