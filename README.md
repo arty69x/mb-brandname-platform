@@ -1,21 +1,77 @@
-# MB Brandname Platform 💎
+# ForLuxury Ecommerce Monorepo
 
-A premium, high-performance luxury e-commerce ecosystem. Built with a focus on **Type-safety**, **Performance**, and **Scalable Architecture**.
+Production-ready monorepo baseline for a **fullstack luxury ecommerce platform** with:
 
-## 🛠 Tech Stack
-- **Frontend:** Next.js 14+ (App Router), Tailwind CSS
-- **Backend:** Next.js API Routes / Node.js
-- **Language:** TypeScript (Strict Mode)
-- **Architecture:** Monorepo (Apps/Packages separation)
+- **Next.js + TypeScript** frontend (`apps/web`)
+- **Tailwind CSS** design foundation
+- **Express API** service (`apps/api`)
+- **Shared UI package** (`packages/ui`)
+- **GitHub Actions CI** and **Vercel preview deployment workflow**
 
-## 🏗 Key Features
-- **Atomic Design:** UI components built for reusability.
-- **End-to-End Type Safety:** Shared interfaces between Frontend & API.
-- **Optimized Performance:** Next/Image optimization for luxury assets.
+## Project Structure
 
-## 🚀 Getting Started
-1. **Clone & Install:**
-   `git clone https://github.com/your-user/mb-brandname-platform.git`
-   `npm install`
-2. **Environment Setup:** Copy `.env.example` to `.env.local`
-3. **Development:** `npm run dev`
+```txt
+apps/
+  web/        # Next.js storefront (App Router)
+  api/        # Node/Express backend
+packages/
+  ui/         # Shared UI components
+```
+
+## Prerequisites
+
+- Node.js 22+
+- pnpm 9+
+
+## Setup
+
+```bash
+pnpm install
+```
+
+## Run in Development
+
+```bash
+pnpm dev
+```
+
+Services:
+- Web: http://localhost:3000
+- API: http://localhost:4000/health
+
+By default, the web app calls `NEXT_PUBLIC_API_URL` (fallbacks to `http://localhost:4000`).
+
+## Quality Commands
+
+```bash
+pnpm lint
+pnpm typecheck
+pnpm build
+```
+
+## GitHub + Vercel Preview Setup
+
+Create the following repository secrets for `.github/workflows/vercel-preview.yml`:
+
+- `VERCEL_TOKEN`
+- `VERCEL_ORG_ID`
+- `VERCEL_PROJECT_ID`
+
+Then link your Vercel project from repo root once:
+
+```bash
+pnpm dlx vercel link
+```
+
+Each PR to `main` will run CI and attempt a preview deployment.
+
+## Demo Endpoints
+
+- `GET /health` → API health status
+- `GET /products/featured` → sample featured product catalog for demo pages
+
+## Showroom Readiness Checklist
+
+- Add repository secrets: `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`
+- Ensure `NEXT_PUBLIC_API_URL` points to your API preview URL in Vercel project settings
+- Run `pnpm build` locally before client demo to verify all packages
