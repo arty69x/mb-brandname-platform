@@ -1,67 +1,288 @@
-# MB BRANDNAME — Frontend Architectural Blueprint
+# MB-BRANDNAME-PLATFORM — FRONTEND AUTHORITATIVE SPEC
+Version: 1.0
+Status: LOCKED
+This document overrides any existing implementation.
+If code conflicts with this document, this document wins.
 
-## I. Overarching Philosophy
+============================================================
+1. FRAMEWORK & BASELINE
+============================================================
 
-The MB BRANDNAME frontend is engineered to evoke the atmosphere of a high-end Tokyo boutique. Every interaction, transition, and typographic choice is curated to reflect the "Authentic Luxury Archive" status of the products.
+- Next.js Pages Router ONLY
+- No App Router
+- TypeScript strict: true
+- No `any`
+- No unused code
+- No console errors
+- No hydration mismatch
 
-## II. Technical Stack
+Tailwind:
+- Version 4
+- styles/globals.css MUST contain exactly:
+  @import "tailwindcss";
+- No arbitrary px values (px-[13px] forbidden)
+- No dynamic Tailwind interpolation
+- No inline styles
 
-- **Framework**: Next.js 16 (App Router)
-- **Styling**: Tailwind CSS 4 (Primitive Layer) + Custom Vanilla CSS
-- **Animations**: Framer Motion (Orchestration Layer)
-- **Carousel**: Swiper (Cinematic Transitions)
-- **Icons**: Lucide React
+============================================================
+2. GLOBAL LAYOUT RULE (MANDATORY)
+============================================================
 
-## III. Core System Components
+All pages must follow:
 
-### 1. Bilingual Localization (`LanguageContext`)
+Layout
+  main
+    section.py-24 OR section.py-32
+      div.container.mx-auto.px-4
 
-A sophisticated engine supporting **Thai** and **English**.
+Exception:
+Hero section MUST NOT use container.
 
-- Global `t()` function for string retrieval.
-- Seamlessly manages dual-language content across all shop and administrative interfaces.
+Hero:
+<section class="relative h-[75vh] w-full">
 
-### 2. Typographic Orchestration (`FontContext`)
+No nested containers.
+No container wrapping Layout root.
+No max-w-screen-* at root.
 
-Dynamically manages font families to suit the active locale:
+============================================================
+3. SPACING SCALE (STRICT)
+============================================================
 
-- **English Mode**: Prioritizes `Bodoni Moda` (Serif) for headers and `Inter` (Sans) for UI elements.
-- **Thai Mode**: Utilizes `Prompt` and `Sarabun` to maintain legibility and professional aesthetic for Thai scripts.
+Allowed vertical spacing ONLY:
+- py-16
+- py-24
+- py-32
 
-### 3. Transactional Engine (`CartContext` & `Checkout`)
+Allowed gap values:
+- gap-8
+- gap-12
+- gap-16
 
-- Real-time cart state with persistence.
-- Multi-step checkout flow (Information -> Shipping -> Payment -> Success).
-- Integrated with MockDB for guest and authenticated order creation.
+Allowed margin:
+- mt-8
+- mt-12
+- mt-16
+- mt-24
 
-## IV. Design System: "Tokyo Archive"
+Any other spacing value must be removed.
 
-- **Visual Tone**: Minimalist monochrome layout (Zinc/White/Black) to accentuate luxury product photography.
-- **Visual Primitives**:
-  - **Glassmorphism**: Subtle backdrop blurs for the global Navbar and Search Overlay.
-  - **UX Chonography**: High-fidelity loading skeletons and staggered entry animations for collection grids.
-- **Interactive Layers**:
-  - **Search Modal**: Instant filtering and visual product matches.
-  - **Hover Effects**: Luxury "zoom-and-fade" patterns on archive items.
+============================================================
+4. TYPOGRAPHY SYSTEM
+============================================================
 
-## V. Strategic Pages
+Hero:
+- uppercase
+- font-light
+- tracking-[0.55em]
+- text-5xl mobile
+- text-7xl desktop
 
-### 1. Immersive Homepage
+Section heading:
+- uppercase
+- font-light
+- tracking-[0.45em]
+- text-2xl mobile
+- text-4xl desktop
 
-- Cinematic Swiper carousel with 4K video backgrounds.
-- Editorial "Bento" grids for storytelling and category highlights.
+UI labels:
+- uppercase
+- font-black
+- tracking-[0.3em]
+- text-[11px]
 
-### 2. Collection Discovery
+Body:
+- font-medium
+- opacity-80
+- max-w-3xl for long paragraphs
 
-- **Grid Systems**: Dynamic layouts for Bags, Accessories, and New Arrivals.
-- **Filter Bar**: Advanced client-side filtering by Brand, Category, and Price sorting.
-- **Product Detail**: Multi-image gallery with localized descriptions and authentic condition grading.
+============================================================
+5. COLOR SYSTEM
+============================================================
 
-### 3. Administrative Interface (`/backend`)
+Primary:
+- bg-white
+- text-black
 
-- Secure unified dashboard for orchestrating the digital boutique's front-facing visual and inventory.
+Borders:
+- border-gray-100 only
 
----
+Light background:
+- bg-gray-50 or bg-gray-100
 
-_MB BRANDNAME — Curating the Future of Heritage._
+Accent:
+- minimal use only for badges or errors
 
+============================================================
+6. HOMEPAGE STRUCTURE (EXACTLY 6 SECTIONS)
+============================================================
+
+1. Hero (full-bleed)
+2. New Arrivals
+3. Editorial Story
+4. About Us
+5. Trust Icons
+6. Footer
+
+No additional sections allowed.
+No compare, no filters, no cart blocks on homepage.
+
+============================================================
+7. SHOP REQUIREMENTS
+============================================================
+
+Must include:
+
+- Search input
+- Category filter
+- Tag filter
+- Sort select
+- Pagination
+- Grid toggle (desktop only)
+- Skeleton loading
+- Empty state safe
+
+Grid rules:
+
+Mobile:
+grid-cols-2 gap-8
+
+Desktop:
+md:grid-cols-4 gap-16
+
+No table layout on mobile.
+
+============================================================
+8. PRODUCT DETAIL PAGE
+============================================================
+
+Must include:
+
+- Image gallery with thumbnails
+- Badge row (Authentic, Grade, Origin, Stock)
+- Tabs: Description / Details / Reviews
+- Related products (4 items)
+- Sticky mobile buy bar
+- Real-time stock simulation (interval 6–8 seconds)
+- Stock never negative
+
+============================================================
+9. CART
+============================================================
+
+- No table on mobile
+- Quantity clamp 1–99
+- Remove item
+- Summary separated by border-t pt-12
+- Empty state safe
+
+============================================================
+10. CHECKOUT (MOCK PAYMENT)
+============================================================
+
+Validation required:
+
+- Email validation
+- Luhn card validation
+- Expiry must be future
+- CVC 3–4 digits
+
+Behavior:
+
+- Disable form during processing
+- 20% random failure
+- On success:
+  - Create PAID order
+  - Clear cart
+  - Redirect to order detail
+- On failure:
+  - Create FAILED order
+  - Keep cart
+
+All JSON parsing must use try/catch.
+Guard window before localStorage.
+
+============================================================
+11. WISHLIST & COMPARE
+============================================================
+
+Wishlist:
+- Toggle
+- Grid layout
+- Empty state
+
+Compare:
+- Max 4 items
+- Mobile stacked layout
+- Desktop grid layout
+- No table on mobile
+
+============================================================
+12. STATE MANAGEMENT SAFETY
+============================================================
+
+Store must include:
+- cart
+- wishlist
+- compare
+- orders
+- account
+- cookiePrefs
+- notifications
+- analytics
+
+Must:
+- Guard window
+- Wrap JSON.parse in try/catch
+- Validate arrays before map
+- No undefined property access
+
+============================================================
+13. ANALYTICS
+============================================================
+
+Track events:
+- view_product
+- add_to_cart
+- begin_checkout
+- purchase_success
+- purchase_failed
+
+Dashboard must show:
+- Revenue (PAID orders)
+- Orders count
+- Conversion rate (mock)
+- Average order value
+
+============================================================
+14. PWA
+============================================================
+
+Must include:
+- manifest.webmanifest
+- theme-color meta
+- icons
+
+============================================================
+15. TESTING
+============================================================
+
+Must include:
+- Jest tests for validation and reducer
+- Playwright test for full checkout flow
+
+============================================================
+16. FINAL VALIDATION BEFORE COMPLETION
+============================================================
+
+- npm run build must pass
+- No TypeScript errors
+- No runtime crash
+- No nested container
+- Hero full-bleed
+- No spacing drift
+- No table mobile layout
+- No arbitrary px values
+- No dynamic Tailwind interpolation
+
+END OF FRONTEND AUTHORITATIVE SPEC
