@@ -1,52 +1,21 @@
-import { NextRequest, NextResponse } from "next/server";
-import { MockDB } from "@/lib/db";
+import { NextResponse } from "next/server";
+import { PRODUCTS } from "@/lib/products";
 
-export async function GET(request: NextRequest) {
+const cache = new Map<string, { data: typeof PRODUCTS; exp: number }>();
+
+export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const category = searchParams.get("category") || undefined;
-  const featured = searchParams.get("featured") === "true";
-  const newArrival = searchParams.get("newArrival") === "true";
-  const search = searchParams.get("search") || undefined;
-  const brand = searchParams.get("brand") || undefined;
-  const sort = (searchParams.get("sort") as any) || undefined;
+  const search = searchParams.get("search")?.toLowerCase() || "";
+  const id = searchParams.get("id") || "";
 
-  try {
-    const products = await MockDB.getProducts({
-      category,
-      featured,
-      newArrival,
-      search,
-      brand,
-      sort,
-    });
-    return NextResponse.json({
-      success: true,
-      data: products,
-      timestamp: new Date().toISOString(),
-    });
-  } catch (error) {
-    return NextResponse.json(
-      { success: false, error: "Failed to fetch products" },
-      { status: 500 },
-    );
-  }
-}
+  const cacheKey = `${search}|${id}`;
+  const cached = cache.get(cacheKey);
+  if (cached && cached.exp > Date.now()) return NextResponse.json(cached.data);
 
-export async function POST(request: NextRequest) {
-  try {
-    const body = await request.json();
-    const newProduct = await MockDB.createProduct(body);
-    return NextResponse.json(
-      {
-        success: true,
-        data: newProduct,
-      },
-      { status: 201 },
-    );
-  } catch (error) {
-    return NextResponse.json(
-      { success: false, error: "Failed to create product" },
-      { status: 400 },
-    );
-  }
+  let data = PRODUCTS;
+  if (id) data = data.filter((p) => p.id === id);
+  if (search) data = data.filter((p) => p.title.toLowerCase().includes(search));
+
+  cache.set(cacheKey, { data, exp: Date.now() + 30000 });
+  return NextResponse.json(data);
 }
