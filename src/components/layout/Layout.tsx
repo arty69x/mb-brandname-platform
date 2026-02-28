@@ -1,36 +1,38 @@
 "use client";
 
 import Link from "next/link";
-import { Heart, Menu, Search, ShoppingBag } from "lucide-react";
+import { Heart, Menu, Search, ShoppingBag, User } from "lucide-react";
 import { useStore } from "@/context/store";
 import { Container } from "@/components/ui/Core";
 
 export function Header() {
   const { cart } = useStore();
+
   return (
-    <header className="fixed top-0 w-full z-50 bg-white/90 backdrop-blur border-b border-gray-100">
+    <header className="fixed top-0 w-full z-50 bg-black/25 backdrop-blur-sm text-white">
       <Container className="h-16 flex items-center justify-between">
-        <div className="flex items-center gap-8">
-          <Menu size={20} className="md:hidden" />
-          <Link href="/" className="uppercase font-black tracking-[0.3em] text-[11px]">
-            MB BRANDNAME
+        <div className="flex items-center gap-6">
+          <Menu size={18} className="md:hidden" />
+          <Link href="/" className="uppercase tracking-[0.2em] text-[11px] font-semibold">
+            MB
           </Link>
-          <nav className="hidden md:flex gap-8">
-            <Link href="/shop" className="uppercase font-black tracking-[0.3em] text-[11px]">
-              SHOP
-            </Link>
-            <Link href="/dashboard" className="uppercase font-black tracking-[0.3em] text-[11px]">
-              DASHBOARD
-            </Link>
+          <nav className="hidden md:flex items-center gap-6 text-[11px] uppercase tracking-[0.15em]">
+            <Link href="/new-arrivals">New Arrivals</Link>
+            <Link href="/bags">Bags</Link>
+            <Link href="/accessories">Accessories</Link>
+            <Link href="/about">About Us</Link>
           </nav>
         </div>
-        <div className="flex items-center gap-8">
-          <Search size={18} />
+
+        <div className="flex items-center gap-4 text-[11px] uppercase tracking-[0.15em]">
+          <Search size={16} />
+          <User size={16} />
           <Link href="/wishlist">
-            <Heart size={18} />
+            <Heart size={16} />
           </Link>
-          <Link href="/cart" className="flex items-center gap-2 uppercase font-black tracking-[0.3em] text-[11px]">
-            <ShoppingBag size={18} /> ({cart.length})
+          <Link href="/cart" className="inline-flex items-center gap-1">
+            <ShoppingBag size={16} />
+            <span>({cart.length})</span>
           </Link>
         </div>
       </Container>
@@ -40,18 +42,40 @@ export function Header() {
 
 export function Footer() {
   return (
-    <footer className="bg-black text-white py-32">
-      <Container className="grid md:grid-cols-2 gap-16 text-center md:text-left">
-        <div className="space-y-8">
-          <h3 className="uppercase font-light tracking-[0.45em] text-2xl md:text-4xl">MB ARCHIVE</h3>
-          <p className="font-medium opacity-80 max-w-2xl text-sm leading-loose">
-            Authentic curated luxury. 100% Verified from Japan.
-          </p>
+    <footer className="bg-black text-white py-16">
+      <Container className="grid grid-cols-2 md:grid-cols-5 gap-10 text-[11px] uppercase tracking-[0.12em]">
+        <div className="space-y-3 col-span-2 md:col-span-1">
+          <h3 className="text-base tracking-[0.2em]">MB</h3>
+          <p className="normal-case tracking-normal opacity-80">1481 River Drive, Suite 35, CA</p>
+          <p className="normal-case tracking-normal opacity-80">+1 264-345-0679</p>
         </div>
-        <div className="flex flex-col md:items-end gap-8 uppercase font-black tracking-[0.3em] text-[11px] opacity-80">
-          <Link href="/shop">SHOP COLLECTION</Link>
-          <Link href="/dashboard">ANALYTICS DASHBOARD</Link>
-          <span className="mt-8">© 2026 MB BRANDNAME.</span>
+
+        <div className="space-y-2">
+          <h4 className="opacity-60">Company</h4>
+          <p>About Us</p>
+          <p>Careers</p>
+          <p>Blog</p>
+        </div>
+
+        <div className="space-y-2">
+          <h4 className="opacity-60">Shop</h4>
+          <p>New Arrivals</p>
+          <p>Accessories</p>
+          <p>Bags</p>
+        </div>
+
+        <div className="space-y-2">
+          <h4 className="opacity-60">Help</h4>
+          <p>Customer Service</p>
+          <p>Legal & Privacy</p>
+          <p>Contact</p>
+        </div>
+
+        <div className="space-y-2">
+          <h4 className="opacity-60">Opening Time</h4>
+          <p className="normal-case tracking-normal">Mon - Fri: 8AM - 9PM</p>
+          <p className="normal-case tracking-normal">Sat: 9AM - 8PM</p>
+          <p className="normal-case tracking-normal">Sun: Closed</p>
         </div>
       </Container>
     </footer>
@@ -60,7 +84,7 @@ export function Footer() {
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen flex flex-col font-sans">
+    <div className="min-h-screen flex flex-col bg-[#ececec] text-[#111] font-sans">
       <Header />
       <main className="flex-1 pt-16">{children}</main>
       <Footer />

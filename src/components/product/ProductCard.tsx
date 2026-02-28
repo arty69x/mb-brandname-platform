@@ -6,31 +6,21 @@ import { Product } from "@/lib/products";
 
 export function ProductCard({ product }: { product: Product }) {
   const { addToCart } = useStore();
+
   return (
-    <div className="flex flex-col gap-8 group">
-      <Link href={`/product/${product.id}`} className="aspect-[3/4] bg-gray-100 overflow-hidden relative">
+    <div className="group">
+      <Link href={`/product/${product.id}`} className="block aspect-square bg-gray-100 overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={product.images[0]}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-          alt={product.title}
-        />
-        {product.isNew && (
-          <span className="absolute top-4 left-4 bg-black text-white px-3 py-1 uppercase font-black tracking-[0.3em] text-[11px]">
-            NEW
-          </span>
-        )}
+        <img src={product.images[0]} className="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt={product.title} />
       </Link>
-      <div className="flex flex-col gap-4">
-        <Link href={`/product/${product.id}`} className="uppercase font-black tracking-[0.3em] text-[11px] truncate">
+      <div className="pt-2 space-y-1">
+        <p className="text-[10px] opacity-60">Dresses</p>
+        <Link href={`/product/${product.id}`} className="text-xs leading-tight block hover:underline">
           {product.title}
         </Link>
-        <div className="font-medium opacity-80">${product.price}</div>
-        <button
-          onClick={() => addToCart(product)}
-          className="uppercase font-black tracking-[0.3em] text-[11px] border-b-2 border-black pb-2 w-fit hover:opacity-50"
-        >
-          ADD TO CART
+        <div className="text-xs">${product.price}</div>
+        <button onClick={() => addToCart(product)} className="text-[10px] uppercase tracking-[0.15em] border-b border-black hover:opacity-70">
+          Add to Cart
         </button>
       </div>
     </div>
