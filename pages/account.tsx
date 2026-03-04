@@ -1,0 +1,2 @@
+import Layout from '@/components/Layout/Layout';
+export default function Page(){return <Layout><main><section className='py-16'><div className='container mx-auto px-4'><h1 className='text-3xl font-semibold'>Account</h1><div className='mt-8 grid gap-4 md:grid-cols-2'><div className='rounded border p-4'>Orders</div><div className='rounded border p-4'>Profile</div><div className='rounded border p-4'>Addresses</div><div className='rounded border p-4'>Wishlist</div></div></div></section></main></Layout>; }

@@ -1,0 +1,1 @@
+export default function Footer(){return <footer className="bg-black py-16 text-white"><section><div className="container mx-auto px-4"><p className="text-sm text-neutral-300">© 2026 Brandname. Crafted for modern ecommerce.</p></div></section></footer>; }
