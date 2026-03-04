@@ -21,7 +21,10 @@ export default function FilterBar({ onFilterChange, brands }: FilterBarProps) {
   const applyFilters = (newBrand?: string, newSort?: string) => {
     setSelectedBrand(newBrand);
     setSelectedSort(newSort);
-    onFilterChange({ brand: newBrand, sort: newSort });
+    const nextFilters: { brand?: string; sort?: string } = {};
+    if (newBrand !== undefined) nextFilters.brand = newBrand;
+    if (newSort !== undefined) nextFilters.sort = newSort;
+    onFilterChange(nextFilters);
     setIsFilterOpen(false);
     setIsSortOpen(false);
   };
