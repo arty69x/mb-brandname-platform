@@ -1,0 +1,1 @@
+import Button from '../UI/Button'; export default function AddToCart(){ return <Button aria-label='Add this item to cart' className='bg-[#d40000] text-white border-[#d40000] hover:bg-[#aa0000]'>Add to Cart</Button>; }
