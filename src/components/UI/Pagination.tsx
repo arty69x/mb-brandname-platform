@@ -1,1 +1,0 @@
-export default function Pagination(){ return <nav aria-label='Pagination' className='flex gap-2'><button className='rounded border px-3 py-1'>1</button><button className='rounded border px-3 py-1'>2</button><button className='rounded border px-3 py-1'>3</button></nav>; }

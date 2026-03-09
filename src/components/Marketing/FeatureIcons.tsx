@@ -1,1 +1,0 @@
-const features=['Free Shipping','Secure Checkout','14-Day Returns']; export default function FeatureIcons(){return <section className='py-16'><div className='container mx-auto px-4'><div className='grid gap-4 md:grid-cols-3'>{features.map((f)=> <div key={f} className='rounded border border-[#e5e5e5] p-6 text-center font-medium'>{f}</div>)}</div></div></section>; }
