@@ -1,2 +1,0 @@
-import { useRouter } from 'next/router'; import Layout from '@/components/Layout/Layout';
-export default function BlogPost(){const router=useRouter(); const slug=typeof router.query.slug==='string'?router.query.slug:'post'; return <Layout><main><section className='py-16'><div className='container mx-auto px-4'><h1 className='text-3xl font-semibold capitalize'>{slug.replace('-', ' ')}</h1><p className='mt-4 text-[#666666]'>Insights about design, travel, and modern essentials.</p></div></section></main></Layout>; }
