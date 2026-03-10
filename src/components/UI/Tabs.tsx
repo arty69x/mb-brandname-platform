@@ -1,1 +1,0 @@
-export default function Tabs({ tabs, active, onChange }: { tabs: string[]; active: string; onChange: (tab: string) => void }) { return <div className='flex gap-2'>{tabs.map((tab) => <button key={tab} onClick={() => onChange(tab)} className={`rounded px-4 py-2 text-sm ${active===tab?'bg-[#111111] text-white':'bg-neutral-100'}`}>{tab}</button>)}</div>; }

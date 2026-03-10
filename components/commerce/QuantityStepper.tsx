@@ -1,0 +1,3 @@
+export default function QuantityStepper({ value, onChange }: { value: number; onChange: (v: number) => void }) {
+  return <div className="inline-flex items-center rounded-full border border-[var(--border)]"><button aria-label="Decrease quantity" className="h-10 w-10" onClick={()=>onChange(Math.max(1,value-1))}>-</button><span className="w-12 text-center text-[12px] uppercase tracking-[0.12em]">{value}</span><button aria-label="Increase quantity" className="h-10 w-10" onClick={()=>onChange(value+1)}>+</button></div>;
+}

@@ -1,0 +1,2 @@
+import { useEffect } from 'react'; import { useRouter } from 'next/router'; import Layout from '@/components/layout/Layout'; import { isAdmin } from '@/lib/auth'; import { products } from '@/data/products';
+export default function AdminProducts() {const r=useRouter();useEffect(()=>{if(!isAdmin()){void r.push('/account');}},[r]);return <Layout><main><section><div className="container mx-auto px-4 py-10">{products.map((p)=><p key={p.id}>{p.title}</p>)}</div></section></main></Layout>;}

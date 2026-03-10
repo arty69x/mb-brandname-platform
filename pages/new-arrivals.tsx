@@ -1,36 +1,58 @@
-import Image from 'next/image';
-import Layout from '@/components/Layout/Layout';
-import ProductGrid from '@/components/Commerce/ProductGrid';
-import { products } from '@/lib/data/products';
+import { useMemo, useState } from 'react';
+import Layout from '@/components/layout/Layout';
+import SEO from '@/components/layout/SEO';
+import ControlBar from '@/components/commerce/ControlBar';
+import ProductCard from '@/components/commerce/ProductCard';
+import { products } from '@/data/products';
+import { canonical } from '@/lib/seo';
+import { sortProducts } from '@/lib/sort';
+
+const banner = 'https://images.unsplash.com/photo-1594223274512-ad4803739b7c?auto=format&fit=crop&w=1900&q=80';
 
 export default function NewArrivalsPage() {
-  const listing = Array.isArray(products) ? products.slice(0, 15) : [];
+  const [sort, setSort] = useState('default');
+  const [grid, setGrid] = useState(4);
+
+  const pool = products.filter((product) => product.category === 'new-arrivals' || product.category === 'bags');
+  const repeated = useMemo(() => {
+    const safePool = Array.isArray(pool) ? pool : [];
+    return Array.from({ length: 15 }, (_, index) => safePool[index % safePool.length]).filter((v): v is (typeof safePool)[number] => Boolean(v));
+  }, [pool]);
+
+  const sorted = sortProducts(repeated, sort);
 
   return (
     <Layout>
+      <SEO title="New Arrivals — MB BRANDNAME" description="Explore curated luxury selection at MB BRANDNAME." canonical={canonical('/new-arrivals')} />
       <main>
-        <section>
+        <section className="pt-0">
           <div className="container mx-auto px-4">
-            <div className="relative mt-2 h-[280px] overflow-hidden sm:h-[360px] lg:h-[420px]">
-              <Image src="/design/page-for-newarrivals-bags-accessories.png" alt="New arrivals banner featuring luxury accessories" fill priority className="object-cover" />
-              <div className="absolute inset-0 bg-black/25" />
-              <h1 className="absolute inset-0 flex items-center justify-center text-[40px] font-light uppercase tracking-[0.06em] text-white sm:text-[56px]">New Arrivals</h1>
+            <div className="relative mt-4 overflow-hidden bg-[var(--bg-alt)]">
+              <img src={banner} alt="New arrivals banner" className="h-[220px] w-full object-cover md:h-[300px] lg:h-[390px]" />
+              <div className="absolute inset-0 bg-black/30" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <h1 className="text-[34px] uppercase tracking-[0.1em] text-white lg:text-[56px]">NEW ARRIVALS</h1>
+              </div>
             </div>
           </div>
         </section>
 
-        <section className="py-8">
+        <section className="py-10 lg:py-14">
           <div className="container mx-auto px-4">
-            <div className="flex flex-col gap-4 border-b border-[#e7e7e7] pb-6 text-[12px] font-semibold uppercase tracking-[0.04em] text-[#222] sm:flex-row sm:items-center sm:justify-end sm:gap-8">
-              <button className="text-left transition hover:opacity-70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-black">Default Sorting ˅</button>
-              <p>View &nbsp; 2 &nbsp; 3 &nbsp; <span className="underline underline-offset-2">4</span></p>
-              <button className="text-left transition hover:opacity-70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-black">Filter</button>
-            </div>
+            <ControlBar count={sorted.length} sort={sort} setSort={setSort} grid={grid} setGrid={setGrid} />
+
             <div className="pt-8">
-              <ProductGrid products={listing} />
+              <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6 lg:grid-cols-5 lg:gap-8">
+                {Array.isArray(sorted)
+                  ? sorted.map((product, idx) => (
+                      <ProductCard key={`${product.id}-${idx}`} product={product} />
+                    ))
+                  : null}
+              </div>
             </div>
-            <div className="pt-12 text-center">
-              <button className="border-b border-black text-[13px] font-semibold uppercase tracking-[0.04em] transition hover:opacity-60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black">Show More</button>
+
+            <div className="pt-10 text-center">
+              <button className="border-b border-[var(--text)] text-[12px] uppercase tracking-[0.12em]">Show More</button>
             </div>
           </div>
         </section>

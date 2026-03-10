@@ -1,2 +1,15 @@
-import Layout from '@/components/Layout/Layout';
-export default function Page(){return <Layout><main><section className='py-16'><div className='container mx-auto px-4'><h1 className='text-3xl font-semibold'>Wishlist</h1><p className='mt-4 text-[#666666]'>Your saved items will appear here.</p></div></section></main></Layout>; }
+import { useMemo, useState } from 'react';
+import Layout from '@/components/layout/Layout';
+import SEO from '@/components/layout/SEO';
+import PageTitleBlock from '@/components/ui/PageTitleBlock';
+import EmptyState from '@/components/ui/EmptyState';
+import ProductGrid from '@/components/commerce/ProductGrid';
+import { products } from '@/data/products';
+import { canonical } from '@/lib/seo';
+import { getWishlist } from '@/lib/wishlist';
+
+export default function WishlistPage() {
+  const [ids] = useState(getWishlist());
+  const list = useMemo(() => products.filter((p) => ids.includes(p.id)), [ids]);
+  return <Layout><SEO title="Wishlist — MB BRANDNAME" description="Saved items." canonical={canonical('/wishlist')} /><main><section><div className="container mx-auto px-4"><PageTitleBlock title="WISHLIST" />{list.length===0?<EmptyState title="WISHLIST IS EMPTY" body="Save products to compare later." ctaHref="/shop" ctaLabel="GO SHOPPING" />:<ProductGrid products={list} />}</div></section></main></Layout>;
+}

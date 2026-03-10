@@ -1,71 +1,87 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import Layout from '@/components/Layout/Layout';
-import ProductGrid from '@/components/Commerce/ProductGrid';
-import { products } from '@/lib/data/products';
-import { ShieldCheck, Truck, Headset } from 'lucide-react';
+import Layout from '@/components/layout/Layout';
+import SEO from '@/components/layout/SEO';
+import ProductCard from '@/components/commerce/ProductCard';
+import { Headphones, ShieldCheck, Truck } from 'lucide-react';
+import { products } from '@/data/products';
+import { canonical } from '@/lib/seo';
+
+const heroRight = 'https://images.unsplash.com/photo-1602173574767-37ac01994b2a?auto=format&fit=crop&w=1400&q=80';
+const heroLeftTop = 'https://images.unsplash.com/photo-1617038220319-276d3cfab638?auto=format&fit=crop&w=1200&q=80';
+const heroLeftBottom = 'https://images.unsplash.com/photo-1617113930975-f9c7243ae527?auto=format&fit=crop&w=1200&q=80';
+const storyImage = 'https://images.unsplash.com/photo-1611085583191-a3b181a88401?auto=format&fit=crop&w=1000&q=80';
 
 export default function HomePage() {
-  const newArrivals = Array.isArray(products) ? products.slice(0, 4) : [];
+  const newArrivals = products.slice(0, 4);
 
   return (
-    <Layout>
+    <Layout headerVariant="home">
+      <SEO title="MB BRANDNAME — No.1 Luxury Store" description="Discover MB BRANDNAME. Luxury bags, accessories, and new arrivals." canonical={canonical('/')} />
       <main>
-        <section className="relative">
+        <section className="relative min-h-screen">
           <div className="container mx-auto px-4">
-            <div className="relative mt-3 h-[420px] overflow-hidden bg-black sm:h-[520px] lg:h-[620px]">
-              <Image src="/design/home.png" alt="Luxury branded jewelry campaign" fill priority className="object-cover" />
-              <div className="absolute inset-0 bg-black/30" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <h1 className="text-center text-[38px] font-light uppercase tracking-[0.03em] text-white sm:text-[52px] lg:text-[64px]">NO.1 Luxury Brandname Store</h1>
+            <div className="absolute inset-0 grid h-full w-full grid-cols-12 grid-rows-6">
+              <div className="col-span-7 row-span-6">
+                <img src={heroRight} alt="Hero model" className="h-full w-full object-cover" />
+              </div>
+              <div className="col-span-5 row-span-3">
+                <img src={heroLeftTop} alt="Hero close up" className="h-full w-full object-cover" />
+              </div>
+              <div className="col-span-5 row-span-3">
+                <img src={heroLeftBottom} alt="Hero jewelry" className="h-full w-full object-cover" />
+              </div>
+            </div>
+            <div className="absolute inset-0 bg-black/35" />
+            <div className="absolute inset-0 flex items-center justify-center px-4">
+              <h1 className="text-center text-[30px] font-light tracking-[0.06em] text-white lg:text-[52px]">NO.1 LUXURY BRANDNAME STONE</h1>
+            </div>
+            <div className="absolute bottom-10 left-1/2 flex -translate-x-1/2 gap-2">
+              {[1, 2, 3, 4].map((dot) => <span key={dot} className={`h-1.5 w-1.5 rounded-full ${dot === 2 ? 'bg-white' : 'bg-white/45'}`} />)}
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-[#efefef] py-14 lg:py-20">
+          <div className="container mx-auto px-4">
+            <div className="mx-auto grid max-w-[980px] grid-cols-1 items-start gap-8 lg:grid-cols-2 lg:gap-10">
+              <div className="aspect-[4/5] overflow-hidden">
+                <img src={storyImage} alt="Story necklace" className="h-full w-full object-cover" />
+              </div>
+              <div>
+                <h2 className="text-[34px] leading-[1.2] text-[var(--text)]">Each necklace has its own unique story to tell.</h2>
+                <p className="mt-6 text-[14px] leading-[1.7] text-[var(--muted)]">In the world of fashion, true luxury is not defined by price alone, but by the story behind each piece.</p>
+                <p className="mt-4 text-[14px] leading-[1.7] text-[var(--muted)]">This necklace was designed to embody timeless elegance. The gold-tone chain is meticulously crafted, gleaming under the light like a treasure from a classic era.</p>
+                <button className="mt-6 rounded-full bg-[var(--cta)] px-6 py-2 text-[11px] uppercase tracking-[0.12em] text-white">FIND YOUR STYLE</button>
               </div>
             </div>
           </div>
         </section>
 
-        <section className="bg-[#ededed] py-12 lg:py-16">
+        <section className="bg-[var(--bg-alt)] py-14 lg:py-20">
           <div className="container mx-auto px-4">
-            <div className="grid gap-8 lg:grid-cols-12 lg:items-center">
-              <div className="lg:col-span-4">
-                <div className="relative aspect-[3/4] overflow-hidden bg-neutral-300">
-                  <Image src="/design/highlight.png" alt="Pendant necklace editorial image" fill loading="lazy" className="object-cover" />
-                </div>
-              </div>
-              <div className="lg:col-span-8">
-                <h2 className="text-[36px] font-medium text-[#111]">Each necklace has its own unique story to tell.</h2>
-                <p className="mt-5 max-w-[780px] text-[17px] leading-[1.7] text-[#404040]">In the world of fashion, true luxury is not defined by price alone, but by the story behind each piece. This necklace was designed to embody timeless elegance. Whether worn on a special occasion or as a touch of charm in your everyday look, this necklace completes your style and tells a story of refined taste and individuality.</p>
-                <button className="mt-7 rounded-full bg-[#4a4a4a] px-6 py-2 text-[12px] font-semibold uppercase tracking-[0.08em] text-white transition hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black">Find your style</button>
-              </div>
+            <h2 className="mb-12 text-center text-[32px] uppercase tracking-[0.1em]">NEW ARRIVALS</h2>
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-8 lg:grid-cols-4">
+              {Array.isArray(newArrivals) ? newArrivals.map((product) => <ProductCard key={product.id} product={product} />) : null}
             </div>
+            <div className="mt-10 text-center">
+              <button className="rounded-full bg-[var(--cta)] px-6 py-2 text-[11px] uppercase tracking-[0.12em] text-white">View More</button>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-[#ececec] py-14 lg:py-20">
+          <div className="container mx-auto px-4">
+            <h3 className="text-center text-[30px] uppercase tracking-[0.08em]">ABOUT US</h3>
+            <p className="mt-10 text-center text-[34px] font-medium uppercase">100% AUTHENTIC BRANDED ITEMS FROM JAPAN</p>
+            <p className="mx-auto mt-6 max-w-[920px] text-center text-[14px] uppercase leading-[1.8] text-[var(--muted)]">CAREFULLY SELECTED AND IMPORTED DIRECTLY FROM JAPAN WITH OVER 10 YEARS OF EXPERIENCE IN AUTHENTIC SECONDHAND BRANDED GOODS, WE GUARANTEE GENUINE QUALITY. EACH ITEM IS THOROUGHLY INSPECTED BEFORE DELIVERY.</p>
           </div>
         </section>
 
         <section className="py-14 lg:py-20">
           <div className="container mx-auto px-4">
-            <h2 className="text-center text-[40px] font-medium uppercase tracking-[0.02em] text-black">New Arrivals</h2>
-            <div className="mt-10">
-              <ProductGrid products={newArrivals} />
-            </div>
-            <div className="mt-12 text-center">
-              <Link href="/new-arrivals" className="inline-flex rounded-full border border-[#2b2b2b] px-6 py-2 text-[12px] font-semibold uppercase tracking-[0.06em] text-black transition hover:bg-black hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black">View more</Link>
-            </div>
-          </div>
-        </section>
-
-        <section className="bg-[#efefef] py-16">
-          <div className="container mx-auto px-4">
-            <h2 className="text-center text-[42px] font-medium uppercase">About us</h2>
-            <h3 className="mt-8 text-center text-[36px] font-semibold uppercase">100% Authentic branded items from Japan</h3>
-            <p className="mx-auto mt-6 max-w-[960px] text-center text-[18px] uppercase leading-[1.8] text-[#2d2d2d]">Carefully selected and imported directly from Japan. With over 10 years of experience in authentic secondhand branded goods, we guarantee genuine quality. Each item is thoroughly inspected before delivery.</p>
-          </div>
-        </section>
-
-        <section className="py-14">
-          <div className="container mx-auto px-4">
-            <div className="grid gap-8 md:grid-cols-3">
-              <div className="text-center"><Truck className="mx-auto" /><h4 className="mt-3 text-[17px] font-semibold">Fast And Free Delivery</h4><p className="mt-2 text-[14px] text-[#666]">Free delivery for all orders over $140</p></div>
-              <div className="text-center"><Headset className="mx-auto" /><h4 className="mt-3 text-[17px] font-semibold">24/7 Customer Support</h4><p className="mt-2 text-[14px] text-[#666]">Friendly 24/7 customer support</p></div>
-              <div className="text-center"><ShieldCheck className="mx-auto" /><h4 className="mt-3 text-[17px] font-semibold">Money Back Guarantee</h4><p className="mt-2 text-[14px] text-[#666]">We return money within 30 days</p></div>
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+              <div className="text-center"><Truck className="mx-auto" size={28} /><p className="mt-3 text-[14px] font-medium">Fast And Free Delivery</p><p className="text-[12px] text-[var(--caption)]">Free delivery for all orders over $140</p></div>
+              <div className="text-center"><Headphones className="mx-auto" size={28} /><p className="mt-3 text-[14px] font-medium">24/7 Customer Support</p><p className="text-[12px] text-[var(--caption)]">Friendly 24/7 customer support</p></div>
+              <div className="text-center"><ShieldCheck className="mx-auto" size={28} /><p className="mt-3 text-[14px] font-medium">Money Back Guarantee</p><p className="text-[12px] text-[var(--caption)]">We return money within 30 days</p></div>
             </div>
           </div>
         </section>

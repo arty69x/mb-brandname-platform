@@ -1,1 +1,0 @@
-import { ReactNode } from 'react'; export default function Modal({ open, children }: { open: boolean; children: ReactNode }) { if (!open) return null; return <div role='dialog' aria-modal='true' className='fixed inset-0 bg-black/30 p-8'><div className='mx-auto max-w-lg rounded bg-white p-6'>{children}</div></div>; }

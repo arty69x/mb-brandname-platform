@@ -4,14 +4,9 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+        <style>{`:root{--bg:#FFFFFF;--bg-alt:#F3F3F3;--text:#111111;--muted:#6D6D6D;--caption:#9B9B9B;--border:#E6E6E6;--footer:#000000;--footerText:#FFFFFF;--footerMuted:#CFCFCF;--accentGold:#C8A96A;--cta:#444444;--ctaHover:#2F2F2F;--danger:#CC3333;}`}</style>
       </Head>
-      <body>
-        <Main />
-        <NextScript />
-      </body>
+      <body className="bg-[var(--bg)] text-[var(--text)]"><Main /><NextScript /></body>
     </Html>
   );
 }

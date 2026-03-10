@@ -1,0 +1,2 @@
+import Layout from '@/components/layout/Layout'; import SEO from '@/components/layout/SEO'; import EmptyState from '@/components/ui/EmptyState'; import { canonical } from '@/lib/seo';
+export default function ServerError() {return <Layout><SEO title="Error — MB BRANDNAME" description="Unexpected error." canonical={canonical('/500')} /><main><section><div className="container mx-auto px-4"><EmptyState title="SERVER ERROR" body="Please try again later." ctaHref="/" ctaLabel="GO HOME" /></div></section></main></Layout>;}

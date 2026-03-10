@@ -1,1 +1,0 @@
-export default function StorySection(){return <section className='py-16'><div className='container mx-auto px-4'><h2 className='text-3xl font-semibold'>Our Story</h2><p className='mt-4 max-w-3xl text-[#666666]'>Brandname crafts elevated essentials blending timeless aesthetics with modern utility for work, travel, and everyday life.</p></div></section>; }
